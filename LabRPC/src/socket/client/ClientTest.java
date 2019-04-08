@@ -1,6 +1,7 @@
 package socket.client;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -27,21 +28,29 @@ public class ClientTest extends JFrame {
 		
 		final JTextField q0 = new JTextField(5);
 		final JTextField qf = new JTextField(5);
-		final JTextField t = new JTextField(5);
-		
+		final JTextField t = new JTextField(5);		
 		JButton ok = new JButton("Segredo de Robertina");
+		//Labels
+		final JLabel q0Label = new JLabel("Q0:");
+		final JLabel qfLabel = new JLabel("QF:");
+		final JLabel timeLabel = new JLabel("Tempo:");
+		final JLabel ipLabel = new JLabel("IP:");
 		
-		final JTextArea area = new JTextArea(10,30);
+		final JTextArea area = new JTextArea(10,40);
 		
 		final JTextField ip = new JTextField(7);
 		
 		
 		panel.setLayout(new FlowLayout());
+		panel.add(q0Label);
 		panel.add(q0);
+		panel.add(qfLabel);
 		panel.add(qf);
+		panel.add(timeLabel);
 		panel.add(t);
 		panel.add(ok);
 		panel.add(area);
+		panel.add(ipLabel);
 		panel.add(ip);
 		ip.setText("localhost");
 		

@@ -36,7 +36,7 @@ public class ClientTest extends JFrame {
 		final JLabel timeLabel = new JLabel("Tempo:");
 		final JLabel ipLabel = new JLabel("IP:");
 		
-		final JTextArea area = new JTextArea(10,40);
+		final JTextArea area = new JTextArea(10,30);
 		
 		final JTextField ip = new JTextField(7);
 		
@@ -52,7 +52,7 @@ public class ClientTest extends JFrame {
 		panel.add(area);
 		panel.add(ipLabel);
 		panel.add(ip);
-		ip.setText("localhost");
+		ip.setText("192.168.43.47");
 		
 		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -69,9 +69,16 @@ public class ClientTest extends JFrame {
 					
 					//Arredondar valor					
 					BigDecimal bd = new BigDecimal(i).setScale(5,RoundingMode.HALF_EVEN);					
-					area.append("\nTaxa de juros do Segredo de Robertina: \nMontante Inicial: " + qtdInicial + "\nMontante Final: " + qtdFinal + "\nTempo de Aplicação: " + tempo + " anos\nTaxa de Juros: " + bd.doubleValue() + "%");
+					if(i != -1){
+						area.append("\n\nTaxa de juros do Segredo de Robertina: \nMontante Inicial: " + qtdInicial + "\nMontante Final: " + qtdFinal + "\nTempo de Aplicação: " + tempo + " anos\nTaxa de Juros: " + bd.doubleValue() + "%");
+					}
+					
+					else {
+						area.append("\n\nAlgo deu errado :/");
+					}
 				} catch (NumberFormatException | IOException e1) {
 					
+					area.append("\n\n Por favor, digite esse negocio direito");
 					e1.printStackTrace();
 				}
 				

@@ -13,6 +13,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.rmi.RemoteException;
 
 public class Tela extends JFrame{
 	
@@ -20,6 +21,7 @@ public class Tela extends JFrame{
 		final JTextField field = new JTextField();
         field.setSize(200, 50);
         field.setText("              ");
+        final String dolar = new String();
 	Container panelMain = getContentPane();
 	Container panel = getContentPane();
 	final JTextField consultar = new JTextField(5);
@@ -35,7 +37,7 @@ public class Tela extends JFrame{
 	final JLabel alteraLabel = new JLabel("Alterar:");
 	final JLabel listaLabel = new JLabel("Lista:");
 	final JLabel okLabel = new JLabel("OK:");
-	DefaultListModel<String>listModel = new DefaultListModel();
+	final DefaultListModel<String>listModel = new DefaultListModel();
 	listModel.addElement("Dolar: R$4,00");
 	listModel.addElement("Euro: 000");
 	listModel.addElement("Libra: 000");
@@ -47,6 +49,34 @@ public class Tela extends JFrame{
      comboBox.addItem("Dolar");
      comboBox.addItem("Euro");
      comboBox.addItem("Libra");
+     
+    add.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			 RMIServer rmi = null;
+				try {
+					rmi = new RMIServer();
+					
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			if (comboBox.getSelectedItem().toString().equals("Dolar")){
+				listModel.remove(0);
+				try {
+	            	rmi.setString(field.getText());
+					listModel.add(0, "Dolar: "+rmi.getString());
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+		}
+	}); 
+     
 	comboBox.addActionListener(new ActionListener() {
 		
 		@Override
@@ -54,12 +84,34 @@ public class Tela extends JFrame{
 			// TODO Auto-generated method stub
 			 JComboBox comboBox = (JComboBox) event.getSource();
 			 Object selected = comboBox.getSelectedItem();
-             if(selected.toString().equals("Dolar"))
-             field.setText("dolar");
-             else if(selected.toString().equals("Euro"))
-             field.setText("euro");
-             else if(selected.toString().equals("Libra"))
-                 field.setText("libra");
+			 RMIServer rmi = null;
+				try {
+					rmi = new RMIServer();
+					
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+//             if(selected.toString().equals("Dolar")){
+//            	 
+//            //	
+//            listModel.remove(0);
+//             try {
+//            	rmi.setString(field.getText());
+//				listModel.add(0, "Dolar: "+rmi.getString());
+//			} catch (RemoteException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//            // field.setText("dolar");
+//             }
+//             else if(selected.toString().equals("Euro"))
+//             field.setText("euro");
+//             else if(selected.toString().equals("Libra"))
+//                 field.setText("libra");
+             
+             
+           
 		}
 	});
 	
